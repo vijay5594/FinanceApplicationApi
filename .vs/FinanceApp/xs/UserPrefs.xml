@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{6937C8FF-5992-49B0-9630-7B5E3DA21060}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FinanceApp/Model/FileUploadModel.cs">
+    <Files>
+      <File FileName="FinanceApp/Model/FileUploadModel.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="FinanceApp" expanded="True">
+            <Node name="FinanceApp" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Model" expanded="True">
+                <Node name="FileUploadModel.cs" selected="True" />
+              </Node>
+              <Node name="Properties" expanded="True" />
+              <Node name="Resource" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.FinanceApp PreferredExecutionTarget="/Applications/Safari.app" />
+</Properties>
