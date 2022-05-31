@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HuAhQ7+AeTrtKGJqyBWw+TpOUeq/4zcwOZMR6wfitdFpRPic308FYtvsKWai0E23nb5fe7A8jH9Vc0IE1ehCMg==",
+  "dgSpecHash": "/QjsjXZgp8D/I1zmH/G5vPkuiR3SJyZsvv3jGrUkxDd19cEWpYgiXVMnJbdHueFmvgOzVAUm0cr10pOPIMqJXA==",
   "success": true,
-  "projectFilePath": "/Users/admin/Desktop/FinanceApplicationApi/FinanceApp/FinanceApp.csproj",
+  "projectFilePath": "/Users/admin/Projects/FinanceApp/FinanceApp/FinanceApp.csproj",
   "expectedPackageFiles": [
     "/Users/admin/.nuget/packages/microsoft.entityframeworkcore/5.0.17/microsoft.entityframeworkcore.5.0.17.nupkg.sha512",
     "/Users/admin/.nuget/packages/microsoft.entityframeworkcore.abstractions/5.0.17/microsoft.entityframeworkcore.abstractions.5.0.17.nupkg.sha512",

@@ -22,26 +22,30 @@ namespace FinanceApp.Controllers
         public IActionResult AddProductCustometDetails([FromBody] ProductCustomerModel userObj)
 
         {
-            for (userObj.SlotNo = 1; context.ProductModels.Any(a => a.NumberOfCustomers >= userObj.SlotNo); userObj.SlotNo++)
-            {
-                if (context.ProductModels.Any(a => a.ProductId == userObj.ProductId) &&
-                    context.CustomerModels.Any(a => a.CustomerId == userObj.CustomerId) &&
-                   !context.ProductCustomerModels.Any(a => a.ProductId == userObj.ProductId && a.SlotNo == userObj.SlotNo))
-
-                {
-                    context.ProductCustomerModels.Add(userObj);
-                    context.SaveChanges();
-                    return Ok(userObj);
-
-                }
-                else
-                {
-                    return NotFound();
-
-                }
-            }
-            return Ok(userObj);
+            int slotno = context.ProductCustomerModels.Max(a => a.SlotNo);
             
+
+            if (context.ProductModels.Any(a => a.ProductId == userObj.ProductId&&a.NumberOfCustomers>=slotno) &&
+             context.CustomerModels.Any(a => a.CustomerId == userObj.CustomerId)&&
+             !context.ProductCustomerModels.Any(a => a.ProductId == userObj.ProductId && a.SlotNo ==userObj.SlotNo))
+              
+            {
+               
+
+                userObj.SlotNo = slotno + 1;
+                 slotno = userObj.SlotNo;
+                
+                context.ProductCustomerModels.Add(userObj);
+                context.SaveChanges();
+                return Ok(userObj);
+
+            }
+           else
+            {
+               return NotFound();
+
+            }
+     
         }
         [HttpPut("UpdateProductCustomer")]
         public IActionResult UpdateProductCustomerDetails([FromBody] ProductCustomerModel userObj)
@@ -73,7 +77,7 @@ namespace FinanceApp.Controllers
             [HttpDelete("DeleteProductCustomer")]
         public IActionResult DeleteProductCustomer(int ProductCustomerId)
         {
-            var productcustomer = context.ProductCustomerModels.Where(a => a.ProductCustomerId == ProductCustomerId).SingleOrDefault();
+            var productcustomer = context.ProductCustomerModels.Where(a => a.ProductCustomerId == ProductCustomerId).FirstOrDefault();
 
 
             if (productcustomer != null && productcustomer.IsActive == true)
