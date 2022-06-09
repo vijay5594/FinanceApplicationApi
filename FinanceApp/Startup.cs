@@ -26,6 +26,17 @@ namespace FinanceApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithExposedHeaders("Content-Disposition", "downloadfilename");
+                    });
+            });
             services.AddControllers();
             services.AddSwaggerGen(option =>
             {
@@ -45,10 +56,13 @@ namespace FinanceApp
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
 
+
             app.UseRouting();
+            app.UseCors("AllowOrigin");
+
 
             app.UseAuthorization();
 

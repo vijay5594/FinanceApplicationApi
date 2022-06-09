@@ -10,42 +10,38 @@ using Microsoft.EntityFrameworkCore;
 namespace FinanceApp.Controllers
 {
     [Route("api/[controller]")]
-    public class ProductCustomerController : Controller     
+    public class ProductCustomerController : Controller
     {
         private readonly UserDbContext context;
 
         public ProductCustomerController(UserDbContext userdbcontext)
-        {        
+        {
             context = userdbcontext;
         }
         [HttpPost("AddProductCustomerdetails")]
         public IActionResult AddProductCustometDetails([FromBody] ProductCustomerModel userObj)
 
         {
-            int slotno = context.ProductCustomerModels.Max(a => a.SlotNo);
-            
-
-            if (context.ProductModels.Any(a => a.ProductId == userObj.ProductId&&a.NumberOfCustomers>=slotno) &&
-             context.CustomerModels.Any(a => a.CustomerId == userObj.CustomerId)&&
-             !context.ProductCustomerModels.Any(a => a.ProductId == userObj.ProductId && a.SlotNo ==userObj.SlotNo))
-              
-            {
-               
-
-                userObj.SlotNo = slotno + 1;
-                 slotno = userObj.SlotNo;
+            if (context.ProductModels.Any(a => a.ProductId == userObj.ProductId) &&
+             context.CustomerModels.Any(a => a.CustomerId == userObj.CustomerId))
+           {
                 
-                context.ProductCustomerModels.Add(userObj);
-                context.SaveChanges();
-                return Ok(userObj);
+               var slotno = (from a in context.ProductCustomerModels where a.ProductId==userObj.ProductId select a.SlotNo).Max();
+                userObj.SlotNo = slotno + 1;
 
-            }
-           else
-            {
-               return NotFound();
+                if (context.ProductModels.Any(a => a.NumberOfCustomers >= userObj.SlotNo)
+                   && !context.ProductCustomerModels.Any(a => a.ProductId == userObj.ProductId && a.SlotNo == userObj.SlotNo))
 
+                {
+                    context.ProductCustomerModels.Add(userObj);
+                    context.SaveChanges();
+                    return Ok(userObj);
+
+                }
             }
-     
+
+            return NotFound();
+         
         }
         [HttpPut("UpdateProductCustomer")]
         public IActionResult UpdateProductCustomerDetails([FromBody] ProductCustomerModel userObj)

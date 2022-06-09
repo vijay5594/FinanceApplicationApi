@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinanceApp.Data;
 using FinanceApp.Model;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinanceApp.Controllers
 {
+
+    [EnableCors("AllowOrigin")]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
@@ -27,9 +30,9 @@ namespace FinanceApp.Controllers
 
 
 
-            var prod = context.ProductModels.AsNoTracking().FirstOrDefault(z => z.ProductName == productObj.ProductName);
-            if(prod == null)
-            {
+            if (!context.ProductModels.Any(a => a.ProductName == productObj.ProductName))
+                {
+                
                 context.ProductModels.Add(productObj);
                 context.SaveChanges();
                 return Ok(productObj);

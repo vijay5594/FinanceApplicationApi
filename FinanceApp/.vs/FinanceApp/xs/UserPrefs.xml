@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{A5B030EE-DC4A-4222-AE53-5F49082C517B}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/ProductCustomerController.cs">
+    <Files>
+      <File FileName="Model/ProductCustomerModel.cs" Line="1" Column="1" />
+      <File FileName="Controllers/ProductCustomerController.cs" Line="26" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="FinanceApp" expanded="True">
+            <Node name="FinanceApp" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Model" expanded="True" />
+              <Node name=".editorconfig" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.FinanceApp PreferredExecutionTarget="/Applications/Google Chrome.app" />
+</Properties>

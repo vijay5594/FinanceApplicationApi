@@ -8,6 +8,7 @@ namespace FinanceApp.Model
         [Key]
         public int AttachmentId { get; set; }
         public string AttachmentName { get; set; }
+        public string AttachmentType { get; set; }
         public string AttachmentPath { get; set; }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/admin/Projects/FinanceApp/FinanceApp/FinanceApp.csproj": {}
+    "/Users/admin/Desktop/FinanceApplicationApi/FinanceApp/FinanceApp.csproj": {}
   },
   "projects": {
-    "/Users/admin/Projects/FinanceApp/FinanceApp/FinanceApp.csproj": {
+    "/Users/admin/Desktop/FinanceApplicationApi/FinanceApp/FinanceApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/admin/Projects/FinanceApp/FinanceApp/FinanceApp.csproj",
+        "projectUniqueName": "/Users/admin/Desktop/FinanceApplicationApi/FinanceApp/FinanceApp.csproj",
         "projectName": "FinanceApp",
-        "projectPath": "/Users/admin/Projects/FinanceApp/FinanceApp/FinanceApp.csproj",
+        "projectPath": "/Users/admin/Desktop/FinanceApplicationApi/FinanceApp/FinanceApp.csproj",
         "packagesPath": "/Users/admin/.nuget/packages/",
-        "outputPath": "/Users/admin/Projects/FinanceApp/FinanceApp/obj/",
+        "outputPath": "/Users/admin/Desktop/FinanceApplicationApi/FinanceApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/admin/.config/NuGet/NuGet.Config"

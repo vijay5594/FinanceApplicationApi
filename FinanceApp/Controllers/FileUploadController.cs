@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.StaticFiles;
 
 namespace FinanceApp.Controllers
 {
-    
+    [EnableCors("AllowOrigin")]
     [Route("api/[controller]")]
     [ApiController]
     public class FileuploadController : ControllerBase
@@ -25,11 +25,12 @@ namespace FinanceApp.Controllers
             context = userdbcontext;
         }
         [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Fileupload(IFormFile files)
+        public IActionResult Fileupload(IFormFile files,string fileType)
         {
             try
             {
                 var file = Request.Form.Files[0];
+               // fileType = Request.Form["fileType"];
                 var date = DateTime.Now.Date.Month.ToString() + " " + DateTime.Now.Date.Year.ToString() + " " + DateTime.Now.Day.ToString();
                 var foldername = Path.Combine("Resource", "Images", date);
                 var pathtosave = Path.Combine(Directory.GetCurrentDirectory(), foldername);
@@ -38,13 +39,14 @@ namespace FinanceApp.Controllers
                     Directory.CreateDirectory(pathtosave);
                     var filename = file.FileName.Trim('"');
                     var fulllpath = Path.Combine(pathtosave, filename).ToString();
+                    var fileExtension = Path.GetExtension(filename);
                     var dbpath = Path.Combine(foldername, filename);
                     var filepathattachment = Path.Combine(foldername, filename).ToString();
                     using (var stream = new FileStream(fulllpath, FileMode.Append))
                     {
                         file.CopyTo(stream);
                     }
-                    var filedetails = SaveFileToDB(filename, filepathattachment);
+                    var filedetails = SaveFileToDB(filename,fileType,filepathattachment);
                     return Ok(filedetails);
                 }
                 return BadRequest();
@@ -58,12 +60,13 @@ namespace FinanceApp.Controllers
 
 
 
-        private FileUploadModel SaveFileToDB(string filename,  string filepathattachment)
+        private FileUploadModel SaveFileToDB(string filename,  string fileType, string filepathattachment)
         {
             var objfile = new FileUploadModel()
             {
                 AttachmentId = 0,
                 AttachmentName = filename,
+                AttachmentType = fileType,
                 AttachmentPath = filepathattachment
             };
             context.FileAttachment.Add(objfile);

@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceApp.Controllers
 {
-    
+    [EnableCors("AllowOrigin")]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class CustomerController : ControllerBase
 
     {
         private readonly UserDbContext context;
 
-        public UserController(UserDbContext userdbcontext)
+        public CustomerController(UserDbContext userdbcontext)
 
 
         {
@@ -28,8 +28,7 @@ namespace FinanceApp.Controllers
         {
 
 
-            if (!context.CustomerModels.Any(a => a.CustomerId == userObj.CustomerId)
-                && !context.CustomerModels.Any(a => a.MobileNumber == userObj.MobileNumber)
+            if (!context.CustomerModels.Any(a => a.MobileNumber == userObj.MobileNumber)
             && !context.CustomerModels.Any(a => a.AadharNumber== userObj.AadharNumber))
             {
                 

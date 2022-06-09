@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinanceApp.Data;
 using FinanceApp.Model;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinanceApp.Controllers
 {
+    [EnableCors("AllowOrigin")]
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {

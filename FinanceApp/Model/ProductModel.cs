@@ -1,4 +1,4 @@
-﻿                         using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace FinanceApp.Model
@@ -12,13 +12,13 @@ namespace FinanceApp.Model
         public string ProductType { get; set; }
         public int ProductTenure { get; set; }
         public int NumberOfCustomers { get; set; }
+        public int price { get; set; }
         public string ProductDescription { get; set; }
         public string CreatedBy { get; set; }
         public DateTime DateOfCreated { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime DateOfModified { get; set; }
-        
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
        
     }

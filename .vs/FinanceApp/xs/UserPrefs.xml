@@ -1,19 +1,38 @@
 ﻿<Properties StartupConfiguration="{6937C8FF-5992-49B0-9630-7B5E3DA21060}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="FinanceApp/Model/FileUploadModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FinanceApp/Controllers/CustomerController.cs">
     <Files>
-      <File FileName="FinanceApp/Model/FileUploadModel.cs" Line="1" Column="1" />
+      <File FileName="FinanceApp/Model/FileUploadModel.cs" Line="15" Column="1" />
+      <File FileName="FinanceApp/Controllers/ProductCustomerController.cs" />
+      <File FileName="FinanceApp/Model/ProductCustomerModel.cs" />
+      <File FileName="FinanceApp/Controllers/ProductController.cs" />
+      <File FileName="FinanceApp/Controllers/CustomerController.cs" Line="71" Column="18" />
+      <File FileName="FinanceApp/Controllers/FileUploadController.cs" />
+      <File FileName="FinanceApp/Controllers/LoginController.cs" />
+      <File FileName="FinanceApp/Controllers/PaymentController.cs" />
+      <File FileName="FinanceApp/Data/UserDbContext.cs" />
+      <File FileName="FinanceApp/Properties/launchSettings.json" />
+      <File FileName="FinanceApp/appsettings.json" />
+      <File FileName="FinanceApp/Program.cs" />
+      <File FileName="FinanceApp/Startup.cs" />
+      <File FileName="FinanceApp/Model/CustomerModel.cs" />
+      <File FileName="FinanceApp/Model/ProductModel.cs" />
+      <File FileName="FinanceApp/Model/PaymentModel.cs" />
+      <File FileName="FinanceApp/Model/LoginModel.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="FinanceApp" expanded="True">
             <Node name="FinanceApp" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Model" expanded="True">
-                <Node name="FileUploadModel.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="CustomerController.cs" selected="True" />
               </Node>
+              <Node name="Data" expanded="True" />
+              <Node name="Model" expanded="True" />
               <Node name="Properties" expanded="True" />
-              <Node name="Resource" expanded="True" />
+              <Node name="Resource" expanded="True">
+                <Node name="Images" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>
@@ -26,5 +45,5 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.FinanceApp PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.ItemProperties.FinanceApp PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>

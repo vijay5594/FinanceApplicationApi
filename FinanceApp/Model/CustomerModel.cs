@@ -19,7 +19,7 @@ namespace FinanceApp.Model
         public DateTime DateOfCreated { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime DateOfModified { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
 
     }
