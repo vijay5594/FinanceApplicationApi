@@ -37,32 +37,36 @@ namespace FinanceApp.Controllers
         public IActionResult AddUser([FromBody] LoginModel userData)
         {
 
-            if (userData == null)
-            {
-                return BadRequest();
-            }
-            else
+            if (userData != null && !(dataContext.LoginModels.Any(a => a.UserName == userData.UserName)))
             {
                 dataContext.LoginModels.Add(userData);
                 dataContext.SaveChanges();
                 return Ok(userData);
             }
+            else
+            {
+                return BadRequest();
+        }
         }
 
 
         [HttpPost("GetLogin")]
         public IActionResult GetLogin([FromBody] LoginModel data)
         {
+
+            
             var user = dataContext.LoginModels.Where(x => x.UserName == data.UserName && x.Password == data.Password).FirstOrDefault();
-            if (user.Role == "Admin" )
+          
+            if (dataContext.LoginModels.Any(x => x.UserName == data.UserName && x.Password == data.Password&&x.Role == "Admin"))
             {
                 var userList = dataContext.LoginModels.AsQueryable();
                 return Ok(userList);
             }
-            if (user.Role == "operator")
+            if (dataContext.LoginModels.Any(x => x.UserName == data.UserName && x.Password == data.Password && x.Role == "operator"))
             {
                 return Ok(user);
             }
+          
             return BadRequest();
         }
 
@@ -75,16 +79,13 @@ namespace FinanceApp.Controllers
                 return BadRequest();
             }
             var user = dataContext.LoginModels.AsNoTracking().FirstOrDefault(x => x.UserId == obj.UserId);
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            else
+           if(!dataContext.LoginModels.Any(x=>x.UserName==obj.UserName)&&user!=null)
             {
                 dataContext.Entry(obj).State = EntityState.Modified;
                 dataContext.SaveChanges();
                 return Ok(obj);
             }
+            return BadRequest();     
         }
 
         [HttpGet("UserExist")]
