@@ -14,85 +14,115 @@ namespace FinanceApp.Controllers
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
-        private readonly UserDbContext context;
+        private readonly UserDbContext dataContext;
 
-        public LoginController(UserDbContext userdbcontext)
+
+
+        public LoginController(UserDbContext userData)
         {
-            context = userdbcontext;
+            dataContext = userData;
         }
 
-        [HttpPost("Login")]
-        public IActionResult Login([FromBody] LoginModel userObj)
+
+        [HttpGet("GetUserDetails")]
+
+        public IActionResult GetUserDetails()
         {
-
-            var user = context.LoginModels.Where(a =>
-            a.Username == userObj.Username && a.Password == userObj.Password).FirstOrDefault();
-            if (user != null)
-            {
-                return Ok(new
-                {
-                    StatusCode = 200,
-                    Message = "Logged In Successfully"
-                });
-
-            }
-            else
-            {
-                return NotFound(new
-                {
-                    StatusCode = 404,
-                    Message = "user not found"
-                });
-            }
+            var UserDetails = dataContext.LoginModels.AsQueryable();
+            return Ok(UserDetails);
         }
-        [HttpPost("signup")]
-        public IActionResult signup([FromBody] LoginModel userobj)
+
+        [HttpPost("AddUser")]
+
+        public IActionResult AddUser([FromBody] LoginModel userData)
         {
-            if (userobj == null)
+
+            if (userData == null)
             {
                 return BadRequest();
             }
             else
             {
-                context.LoginModels.Add(userobj);
-                context.SaveChanges();
-
-                return Ok(new
-                {
-                    statuscode = 200,
-                    message = "User Added Successfully"
-                });
+                dataContext.LoginModels.Add(userData);
+                dataContext.SaveChanges();
+                return Ok(userData);
             }
         }
-            [HttpPut("ChangePassword")]
 
-        public IActionResult ChangePassword([FromBody] LoginModel userObj)
+
+        [HttpPost("GetLogin")]
+        public IActionResult GetLogin([FromBody] LoginModel data)
         {
-            var user = context.LoginModels.AsNoTracking().FirstOrDefault(a => a.Username == userObj.Username);
-            if (user != null)
+            var user = dataContext.LoginModels.Where(x => x.UserName == data.UserName && x.Password == data.Password).FirstOrDefault();
+            if (user.Role == "Admin" )
             {
-                context.Entry(userObj).State = EntityState.Modified;
-                context.SaveChanges();
-                return Ok(new
-                {
-                    StatusCode = 200,
-                    Message = "Password Changed successfully"
-                });
+                var userList = dataContext.LoginModels.AsQueryable();
+                return Ok(userList);
+            }
+            if (user.Role == "operator")
+            {
+                return Ok(user);
+            }
+            return BadRequest();
+        }
+
+        [HttpPut("UpdateLogin")]
+
+        public IActionResult UpdateLogin([FromBody] LoginModel obj)
+        {
+            if (obj == null)
+            {
+                return BadRequest();
+            }
+            var user = dataContext.LoginModels.AsNoTracking().FirstOrDefault(x => x.UserId == obj.UserId);
+            if (user == null)
+            {
+                return BadRequest();
             }
             else
             {
-                return NotFound(new
+                dataContext.Entry(obj).State = EntityState.Modified;
+                dataContext.SaveChanges();
+                return Ok(obj);
+            }
+        }
+
+        [HttpGet("UserExist")]
+        public IActionResult GetUser(string obj)
+        {
+            var userDetails = dataContext.LoginModels.AsNoTracking().FirstOrDefault(x => x.UserName == obj);
+            if (userDetails == null)
+            {
+                return Ok(new
                 {
-                    StatusCode = 404,
-                    Message = "user not found"
+                    message = "You Can Enter"
+                }); ;
+            }
+            else
+            {
+                return Ok(new
+                {
+                    message = "already Exist"
                 });
             }
-            
         }
-        
+
+
+        [HttpDelete("DeletUser")]
+        public IActionResult DeletUser(int id)
+        {
+            var deleteUser = dataContext.LoginModels.Find(id);
+            if (deleteUser == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                dataContext.LoginModels.Remove(deleteUser);
+                dataContext.SaveChanges();
+                return Ok();
+            }
+        }
+
     }
 }
-  
-
-
-
