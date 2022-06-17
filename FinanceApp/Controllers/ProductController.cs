@@ -49,16 +49,21 @@ namespace FinanceApp.Controllers
 
             var product = context.ProductModels.AsNoTracking().FirstOrDefault(a => a.ProductId == productObj.ProductId);
 
-            if (product == null)
+            if (product !=null)
             {
-                return BadRequest();
+                try
+                {
+                    context.ProductModels.Attach(productObj);
+                    context.Entry(productObj).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return Ok(productObj);
+                }
+                catch
+                {
+
+                }
             }
-            else
-            {
-                context.Entry(productObj).State = EntityState.Modified;
-                context.SaveChanges();
-                return Ok(productObj);
-            }
+            return BadRequest();
 
         }
         [HttpDelete("DeleteProduct")]

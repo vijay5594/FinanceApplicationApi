@@ -59,8 +59,8 @@ namespace FinanceApp.Controllers
           
             if (dataContext.LoginModels.Any(x => x.UserName == data.UserName && x.Password == data.Password&&x.Role == "Admin"))
             {
-                var userList = dataContext.LoginModels.AsQueryable();
-                return Ok(userList);
+                //var userList = dataContext.LoginModels.AsQueryable();
+                return Ok(user);
             }
             if (dataContext.LoginModels.Any(x => x.UserName == data.UserName && x.Password == data.Password && x.Role == "operator"))
             {

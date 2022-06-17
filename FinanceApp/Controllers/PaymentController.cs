@@ -31,17 +31,9 @@ namespace FinanceApp.Controllers
                 context.SaveChanges();
 
 
-                return Ok(new
-                {
-                    statuscode = 200,
-                    message = "Paid Successfully"
-                });
+                return Ok(paymentObj);
             }
-            else
-            {
-                return NotFound();
-            }
-
+             return BadRequest();
         }
 
     }

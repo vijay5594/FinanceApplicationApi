@@ -10,7 +10,7 @@ namespace FinanceApp.Model
         public int PaymentId { get; set; }
         [ForeignKey("ProductCustomerId")]
         public int ProductCustomerId { get; set; }
-        public int SlotNo { get; set; }
+        //public int SlotNo { get; set; }
         public string PaymentType { get; set; }
         public DateTime PaymentDate { get; set; }
         public string PaidAmount { get; set; }

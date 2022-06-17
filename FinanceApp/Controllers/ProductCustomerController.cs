@@ -22,27 +22,34 @@ namespace FinanceApp.Controllers
         public IActionResult AddProductCustometDetails([FromBody] ProductCustomerModel userObj)
 
         {
-            if (context.ProductModels.Any(a => a.ProductId == userObj.ProductId) &&
-             context.CustomerModels.Any(a => a.CustomerId == userObj.CustomerId))
-           {
-                
-               var slotno = (from a in context.ProductCustomerModels where a.ProductId==userObj.ProductId select a.SlotNo).Max();
+            try
+            {
+                var slotno = (from a in context.ProductCustomerModels where a.ProductId == userObj.ProductId select a.SlotNo).Max();
                 userObj.SlotNo = slotno + 1;
-
-                if (context.ProductModels.Any(a => a.NumberOfCustomers >= userObj.SlotNo)
-                   && !context.ProductCustomerModels.Any(a => a.ProductId == userObj.ProductId && a.SlotNo == userObj.SlotNo))
-
+                if (context.ProductModels.Any(a => a.ProductId == userObj.ProductId && a.NumberOfCustomers >= userObj.SlotNo) &&
+            context.CustomerModels.Any(a => a.CustomerId == userObj.CustomerId) &&
+           !context.ProductCustomerModels.Any(a => a.ProductId == userObj.ProductId && a.SlotNo == userObj.SlotNo))
                 {
+
                     context.ProductCustomerModels.Add(userObj);
                     context.SaveChanges();
                     return Ok(userObj);
 
                 }
             }
+            catch (InvalidOperationException)
+            {
+                userObj.SlotNo = 1;
+                context.ProductCustomerModels.Add(userObj);
+                context.SaveChanges();
+                return Ok(userObj); ;
+            }
+            return BadRequest();
 
-            return NotFound();
-         
         }
+
+
+
         [HttpPut("UpdateProductCustomer")]
         public IActionResult UpdateProductCustomerDetails([FromBody] ProductCustomerModel userObj)
         {
@@ -70,7 +77,7 @@ namespace FinanceApp.Controllers
                 });
             }
         }
-            [HttpDelete("DeleteProductCustomer")]
+        [HttpDelete("DeleteProductCustomer")]
         public IActionResult DeleteProductCustomer(int ProductCustomerId)
         {
             var productcustomer = context.ProductCustomerModels.Where(a => a.ProductCustomerId == ProductCustomerId).FirstOrDefault();
@@ -100,24 +107,17 @@ namespace FinanceApp.Controllers
         [HttpGet("AllproductCustomer")]
         public IActionResult GetAllProductCustomer()
         {
+
             bool IsActive = true;
-
-            if (IsActive == true)
-            {
-                var productcustomer = context.ProductCustomerModels.Where(a => a.IsActive == IsActive);
-
-                return Ok(productcustomer);
-            }
-            else
-            {
-                return NotFound();
-            }
+            var products = context.ProductCustomerModels.Where(a => a.IsActive == IsActive);
+            return Ok(products);
         }
+    
         [HttpGet("OrderByProduct")]
         public IActionResult GetById(int ProductId)
         {
             bool IsActive = true;
-            var products = context.ProductCustomerModels.Where(a => a.ProductId == ProductId && a.IsActive == IsActive);
+            var products = context.ProductCustomerModels.Where(a => a.ProductId == ProductId && a.IsActive == IsActive).ToList();
             
             if (products!=null)
             {

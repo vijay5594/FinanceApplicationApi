@@ -35,49 +35,33 @@ namespace FinanceApp.Controllers
                 context.CustomerModels.Add(userObj);
                 context.SaveChanges();
                 return Ok(userObj);
+            }
+            return BadRequest();
+                
+            }
 
 
-            }
-            
-            
-         else
-                {
-                return NotFound(new
-                {
-                    StatusCode = 404,
-                    Message = "Invalid Customer details cannot be added"
-                }); 
-                }
-            }
-                    
-        
         [HttpPut("UpdateCustomer")]
         public IActionResult UpdateCustomerDetails([FromBody] CustomerModel userObj)
         {
-            
-            var customer = context.CustomerModels.AsNoTracking().FirstOrDefault(a => a.CustomerId == userObj.CustomerId);
-            if (customer != null && customer.IsActive == true)
+
+             var customer = context.CustomerModels.AsNoTracking().FirstOrDefault(a => a.CustomerId == userObj.CustomerId);
+            if (customer != null)
+
             {
-                
+                try
+                {
+                    context.CustomerModels.Attach(userObj);
                     context.Entry(userObj).State = EntityState.Modified;
                     context.SaveChanges();
                     return Ok(userObj);
                 }
-                 else if (customer != null && customer.IsActive == false)
+                catch
                 {
-                    customer.IsActive = true;
-                    context.SaveChanges();
-                    return Ok(userObj);
+                    return BadRequest();
                 }
-              
-                else { 
-                return NotFound(new
-                {
-                    StatusCode = 404,
-                    Message = "CustomerDetails not found"
-                });
             }
-           
+            return BadRequest();
         }
         [HttpDelete("DeleteCustomer")]
         public IActionResult DeleteCustomerDetails(int CustomerId)
@@ -89,17 +73,12 @@ namespace FinanceApp.Controllers
             {
                 customer.IsActive = false;
                 context.SaveChanges();
-                return Ok(new
-                {
-                    StatusCode = 200,
-                    Message = "CustomerDetails deleted successfully"
-                });
+                return Ok();
 
             }
-            else
-            {
+          
                 return NotFound();
-            }
+          
 
         }
         [HttpGet("AllCustomers")]
